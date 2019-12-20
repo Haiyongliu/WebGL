@@ -29,10 +29,12 @@
         var x = 0;
         var y = 0;
         var z = 0;
+        var pointLight;
 
         initEnv();
         model = createModel();
         attachCanvas();
+        lightUp();
         putModel();
         renderOnce();
         animate();
@@ -60,8 +62,14 @@
         }
         
         function putModel(){
-            scene.add(model);
+            scene.add(model);scene.add(pointLight);
         }
+
+        function lightUp(){
+            pointLight = new THREE.PointLight( 0xff0000, 20 );
+			pointLight.position.set( 0, 0, 0 );
+        }
+
         // 变量改变，动态渲染
         function renderOnce(){
             var arrayBuffer = model.geometry.attributes.position.array;
