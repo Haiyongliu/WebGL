@@ -1,0 +1,77 @@
+<!--DOCTYPE html-->
+<html>
+    <head>
+        <meta chartset="utf-8">
+        <title>Basic Line</title>
+        <style>
+            body { margin: 0;}
+            canvas { width:100%;height: 100%; }
+        </style>
+    </head>
+
+    <body>
+        
+    </body>
+    <script src="./js/three.js"></script>
+    <script>
+        var scene;
+        var camera;
+        var renderer;
+        var model;
+
+        initEnv();
+        model = createModel();
+        attachCanvas();
+        putModel();
+        renderOnce();
+        animate();
+        
+        function initEnv(){
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.01,1000);
+            camera.position.z = 15;
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth,window.innerHeight);
+        }
+
+        function createModel(){
+            var line = new THREE.Geometry();
+            var material = new THREE.LineBasicMaterial({color:0x00ff00});
+            var squart3 = Math.sqrt(3);
+            var rLine = 2.5;
+            
+            line.vertices.push(new THREE.Vector3(rLine,0,0));
+            line.vertices.push(new THREE.Vector3(-rLine,0,0));
+            line.vertices.push(new THREE.Vector3(0 ,0 ,rLine * squart3));
+            line.vertices.push(new THREE.Vector3(rLine ,0,0));
+            line.vertices.push(new THREE.Vector3(0 ,Math.sqrt(24)/3 * rLine ,rLine/squart3));
+            line.vertices.push(new THREE.Vector3(0 ,0 ,rLine * squart3));
+            line.vertices.push(new THREE.Vector3(-rLine,0,0));
+            line.vertices.push(new THREE.Vector3(0 ,Math.sqrt(24)/3 * rLine ,rLine/squart3));
+
+            var mesh = new THREE.Line(line,material);
+            return mesh;
+        }
+        function attachCanvas(){
+            document.body.appendChild(renderer.domElement);
+        }
+        
+        function putModel(){
+            scene.add(model);
+        }
+
+        function renderOnce(){
+            camera.position.z = 15;
+            renderer.render(scene,camera);
+        }
+
+        function animate(){
+            model.rotation.x += 0.002;
+            model.rotation.y += 0.002;
+            model.rotation.z += 0.002;
+
+            renderOnce();
+            requestAnimationFrame(animate);
+        }
+    </script>
+</html>
