@@ -19,18 +19,17 @@
         var renderer;
         var model;
 
-        var radius = 0;
+        var radius = Math.PI/2;
 
         var TYPE_ROTATION = 0;
         var TYPE_INSIGHT = 1;
         var TYPE_POSITION = 2;
-        var renderType = TYPE_ROTATION;
+        var renderType = TYPE_POSITION;
 
         initEnv();
         createModel();
         attachCanvas();
         putModel();
-        renderOnce();
         registEventListener();
 
         function registEventListener(){
@@ -42,6 +41,7 @@
         function initEnv(){
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(45 ,window.innerWidth/window.innerHeight ,0.01 ,1000);
+            camera.position.set(1000 ,0 ,10000);
             camera.lookAt(0,0,0);
             renderer = new THREE.WebGLRenderer( {antiailias:true} );
             renderer.setPixelRatio( window.devicePixelRatio );
@@ -58,7 +58,7 @@
             loader.load('./resource/scene_bg_c.jpeg' , function ( texture) {
                 texture.mapping = THREE.UVMapping;
                 scene.background = new THREE.WebGLRenderTargetCube(4096,4096,options).fromEquirectangularTexture(renderer ,texture);
-                renderOnce();
+                render();
             });
         }
 
@@ -80,32 +80,35 @@
             */
             switch (renderType){
                 case TYPE_ROTATION:
-                    renderRotation();
+                    configRotation();
                     break;
                 case TYPE_POSITION:
-                    renderPosition();
+                    configPosition();
                     break;
                 case TYPE_INSIGHT:
-                    renderInsight();
+                configInsight();
                     break;
             }
+            render();
+        }
 
+        function render(){
             renderer.render(scene ,camera);
         }
 
-        function renderInsight(){
+        function configInsight(){
             camera.lookAt( 100000 * Math.sin(radius) ,100000 * Math.cos(radius),0 );
         }
 
-        function renderPosition(){
+        function configPosition(){
             radius += 0.01;
-            camera.position.x = 10000 * Math.sin(radius);
+            // camera.position.x = 10000 * Math.sin(radius);
             camera.position.y = 10000 * Math.cos(radius);
             camera.position.z = 10000;
             camera.lookAt(0,0,0);
         }
 
-        function renderRotation(){
+        function configRotation(){
             // camera.rotation.x += 0.005;
             //水平旋转
             camera.rotation.y += 0.005;
