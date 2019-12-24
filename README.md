@@ -3,7 +3,7 @@
 ### Contents
 1. WebGL
 2. How to run this project.
-3. 
+3. Demos
 
 ## 1. WebGL
 This is demo for THREE.js 
@@ -31,4 +31,10 @@ This is demo for THREE.js
        基础的画线功能。
     4. Basic_BoxBufferGeometry.html<br>
        BoxBuffer几何图形
+    5. Basic_BufferLine.html
+       Example for showing dynamic lines with vertexs.
+    6. AudioPlayer.html
+       Example for play audio and positional audio.
+    7. Basic_TextureLoader.html
+       Example for load jpeg and jpg picture as cubic model.
        
