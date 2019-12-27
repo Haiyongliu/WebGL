@@ -1,0 +1,134 @@
+<!--DOCTYPE html-->
+<html>
+    <head>
+        <meta chartset="utf-8">
+        <title>Basic Line</title>
+        <style>
+            body { margin: 0;}
+            canvas { width:100%;height: 100%; }
+        </style>
+    </head>
+
+    <body>
+        
+    </body>
+    <script src="./js/three.js"></script>
+    <script>
+        var scene;
+        var camera;
+        var renderer;
+        var model;
+        var pointLight;
+
+        initEnv();
+        model = createModel();
+        attachCanvas();
+        lightUp();
+        putModel();
+        renderOnce();
+        animate();
+        setListener();
+
+        function lightUp(){
+            pointLight = new THREE.PointLight( 0xffffff, 6.5 );
+            pointLight.position.set( 30, 10, 30 );
+            scene.add(pointLight);
+        }
+        
+        function initEnv(){
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.01,1000);
+            camera.position.z = 15;
+            renderer = new THREE.WebGLRenderer({antialias:true});
+            renderer.setSize(window.innerWidth,window.innerHeight);
+        }
+
+        function createModel(){
+            var line = new THREE.BufferGeometry();
+            var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+
+            setVertices(line);
+            setVerticesColor(line);
+
+            // 线到面的转换，三角形拼接方式
+            // 绘图模式
+            // 1. THREE.TrianglesDrawMode ：这是默认值，这将使得每三个连续顶点(v0, v1, v2)，(v3, v4, v5)，……被解释为一个单独的三角形。
+            //                               如果顶点的数量不是3的倍数，那么将会忽略多余的顶点。
+            // 2. THREE.TriangleStripDrawMode :这将使得一系列的三角形（由(v0, v1, v2)，(v2, v1, v3)，(v2, v3, v4)，……给定）一个一个地连在一起，
+            //                               每一个连续的三角形将和前一个三角形共享两个顶点
+            // 3. THREE.TriangleFanDrawMode:这将会使得一个序列中的每一个三角形（由(v0, v1, v2)，(v0, v2, v3)，(v0, v3, v4)，……给定）
+            //                               共享它们的第一个顶点（就像风扇一样）。
+            var mesh = new THREE.Mesh(line,material);
+            mesh.drawMode = THREE.TriangleStripDrawMode;
+            return mesh;
+        }
+
+        function attachCanvas(){
+            document.body.appendChild(renderer.domElement);
+        }
+        
+        function putModel(){
+            scene.add(model);
+        }
+
+        function renderOnce(){
+            camera.position.z = 105;
+            camera.lookAt(scene.position);
+            renderer.render(scene,camera);
+        }
+
+        function animate(){
+            model.rotation.x += 0.002;
+            model.rotation.y += 0.002;
+            model.rotation.z += 0.002;
+
+            renderOnce();
+            requestAnimationFrame(animate);
+        }
+
+        function setVertices( geometry ){
+            var squart3 = Math.sqrt(3);
+            var rLine = 25;
+
+            var vertices = [];
+            
+            vertices.push(rLine,0,0);
+            vertices.push(-rLine,0,0);
+            vertices.push(0 ,0 ,rLine * squart3);
+            vertices.push(rLine ,0,0);
+            vertices.push(0 ,Math.sqrt(24)/3 * rLine ,rLine/squart3);
+            vertices.push(0 ,0 ,rLine * squart3);
+            vertices.push(-rLine,0,0);
+            vertices.push(0 ,Math.sqrt(24)/3 * rLine ,rLine/squart3);
+            vertices.push(rLine,0,0);
+            geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+        }
+
+        /**
+         * 设置顶点颜色数据
+        */
+        function setVerticesColor( geometry ) {
+            var colors = [];
+
+            for ( var i = 0; i < 9; i ++ ) {
+                var x = Math.random() ;
+                var y = Math.random() ;
+                var z = Math.random() ;
+
+                // colors
+
+                colors.push( x);
+                colors.push( y );
+                colors.push( z );
+            }
+
+            geometry.setAttribute( 'color' , new THREE.Float32BufferAttribute( colors ,3));
+        }
+
+        function setListener(){
+            document.body.addEventListener("click",function(){
+               setVerticesColor(model.geometry); 
+            });
+        }
+    </script>
+</html>
