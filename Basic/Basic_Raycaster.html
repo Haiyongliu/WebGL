@@ -24,14 +24,14 @@
         var renderer;
         var model;
         var pointLight;
-        
+
         var animateEnable = false;
-        
+
         var INTERTESTED;
         var raycaster;
         var mouse;
 
-        
+
         // prepare the enviroment
         initEnv();
         // prepare the model
@@ -43,10 +43,10 @@
         lightUp();
         // render the scene
         renderScene();
-        
+
         // Animation and rotation and so on.
         others();
-        
+
         function initEnv(){
             // 1. prepare scene
             scene = new THREE.Scene();
@@ -76,7 +76,7 @@
             // Mesh refer to the shape and material
             return new THREE.Mesh(boxGeometry,material);
         }
-        
+
         function attachToCanvas(){
             document.body.appendChild(renderer.domElement);
         }
