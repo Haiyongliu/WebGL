@@ -1,0 +1,39 @@
+<!--DOCTYPE html-->
+<html>
+    <head>
+        <meta chartset="utf-8">
+        <title>EventDispatcher</title>
+        <style>
+            body { margin: 0;}
+            canvas { width:100%;height: 100%; }
+        </style>
+    </head>
+
+    <body>
+        
+    </body>
+    <script src="./js/three.js"></script>
+    <script >
+        var Car = function () {
+            this.start = function () {
+                this.dispatchEvent({ type:'startEvent' ,message:'start event' });
+            }
+        }
+
+        Object.assign(Car.prototype ,THREE.EventDispatcher.prototype);
+        var carInstance = new Car();
+        
+        carInstance.addEventListener('startEvent' ,function (event){
+            alert("start event:" + event.message);
+        });
+
+        setListener();
+
+
+        function setListener(){
+            document.body.addEventListener("click",function(){
+               carInstance.start();
+            });
+        }
+    </script>
+</html>
