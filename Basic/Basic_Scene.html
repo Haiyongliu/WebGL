@@ -123,7 +123,7 @@
             camera.position.set(10,10,10);
             camera.lookAt(0,0,0);
             // 3. prepare renderer
-            renderer = new THREE.WebGLRenderer();
+            renderer = new THREE.WebGLRenderer( {antialias:true} );
             renderer.setSize(window.innerWidth,window.innerHeight);
         }
 
@@ -132,6 +132,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            renderScene();
         }
     </script>
 </html>

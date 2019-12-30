@@ -36,7 +36,7 @@
         attachCanvas();
         lightUp();
         putModel();
-        renderOnce();
+        render();
         animate();
         window.addEventListener('resize' ,onWindowResize ,false);
 
@@ -75,7 +75,7 @@
         }
 
         // 变量改变，动态渲染
-        function renderOnce(){
+        function render(){
             var arrayBuffer = model.geometry.attributes.position.array;
 
             radiusX += (stepGlobal * 0.01);
@@ -101,7 +101,7 @@
             model.rotation.y += 0.002;
             model.rotation.z += 0.002;
 
-            renderOnce();
+            render();
         }
 
         function onWindowResize() {
@@ -109,6 +109,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
     </script>
 </html>

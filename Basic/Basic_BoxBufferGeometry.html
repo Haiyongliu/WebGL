@@ -31,7 +31,7 @@
         lightUp();
         putScene();
         putBaseline();
-        renderScene();
+        render();
         
         animate();
         window.addEventListener('resize' ,onWindowResize ,false);
@@ -60,10 +60,10 @@
             model.rotation.y += 0.01;
             model.rotation.z += 0.01;
 
-            renderScene();
+            render();
         }
 
-        function renderScene(){
+        function render(){
             renderer.render(scene,camera);
         }
 
@@ -101,6 +101,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
     </script>
 </html>

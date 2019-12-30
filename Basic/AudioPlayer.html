@@ -160,7 +160,7 @@
 
         }
 
-        function renderScene(){
+        function render(){
             renderer.render(scene,camera);
         }
 
@@ -199,6 +199,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
 
     </script>

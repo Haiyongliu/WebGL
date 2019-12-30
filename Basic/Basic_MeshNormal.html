@@ -25,7 +25,7 @@
         attachCanvas();
         lightUp();
         putModel();
-        renderOnce();
+        render();
         animate();
         window.addEventListener('resize' ,onWindowResize ,false);
 
@@ -112,7 +112,7 @@
             scene.add(model);
         }
 
-        function renderOnce(){
+        function render(){
             renderer.render(scene,camera);
         }
 
@@ -122,7 +122,7 @@
             scene.rotation.z += 0.002;
 
             // camera.lookAt(scene.position);
-            renderOnce();
+            render();
             requestAnimationFrame(animate);
         }
 
@@ -131,6 +131,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
     </script>
 </html>

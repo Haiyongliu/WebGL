@@ -44,7 +44,7 @@
         addToScene();
         lightUp();
         // render the scene
-        renderScene();
+        render();
         
         // Animation and rotation and so on.
         others();
@@ -96,7 +96,7 @@
             scene.add(pointLight);
         }
 
-        function renderScene(){
+        function render(){
             chooseSelectedObject();
             renderer.render(scene,camera);
         }
@@ -141,7 +141,7 @@
                 // System timer
                 window.requestAnimationFrame(animate);
             }
-            renderScene();
+            render();
 
             // step
             model.rotation.x += 0.01;
@@ -183,6 +183,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
     </script>
 </html>

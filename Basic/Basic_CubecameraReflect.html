@@ -97,7 +97,7 @@
             scene.add( cubeCamera );
         }
 
-        function renderOnce(){
+        function render(){
             /**
             * 该模型中（WebGLRenderTargetCube），把图片转换成方块，相继无论如何位于方块中心点位置，
             * 所以，camera的position值最终都会按照三角函数将（x,y,z）转换成rotation的角度，
@@ -147,7 +147,7 @@
         }
 
         function animate(){
-            renderOnce();
+            render();
             requestAnimationFrame(animate);
         }
 
@@ -156,6 +156,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
+            render();
         }
     </script>
 </html>
