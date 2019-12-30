@@ -46,7 +46,7 @@
             renderer = new THREE.WebGLRenderer({antialias:true});
             renderer.setSize(window.innerWidth,window.innerHeight);
         }
-        
+
         function createModel(){
             var geometry = new THREE.BufferGeometry();
             var material = new THREE.MeshBasicMaterial({color:0x00ff00});
@@ -61,7 +61,7 @@
         function attachCanvas(){
             document.body.appendChild(renderer.domElement);
         }
-        
+
         function putModel(){
             scene.add(model);
             scene.add(pointLight);
@@ -82,7 +82,7 @@
             x = R * Math.cos(radiusY) * Math.cos(radiusX);
             y = R * Math.cos(radiusY) * Math.sin(radiusX);
             z = R * Math.sin(radiusY);
-            
+
             arrayBuffer[position++] = x;
             arrayBuffer[position++] = y;
             arrayBuffer[position++] = z;
@@ -91,7 +91,7 @@
             model.geometry.attributes.position.needsUpdate = true;
             renderer.render(scene,camera);
         }
-        
+
         function animate(){
             requestAnimationFrame(animate);
 
