@@ -22,7 +22,7 @@
 
         Object.assign(Car.prototype ,THREE.EventDispatcher.prototype);
         var carInstance = new Car();
-        
+
         carInstance.addEventListener('startEvent' ,function (event){
             alert("start event:" + event.message);
         });
@@ -34,6 +34,14 @@
             document.body.addEventListener("click",function(){
                carInstance.start();
             });
+            window.addEventListener('resize' ,onWindowResize ,false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>

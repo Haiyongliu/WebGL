@@ -22,6 +22,7 @@
         var camera;
         var renderer;
         var model;
+        var pointLight;
 
         // Flow
         initEnv();
@@ -31,9 +32,9 @@
         putScene();
         putBaseline();
         renderScene();
-        var pointLight;
         
         animate();
+        window.addEventListener('resize' ,onWindowResize ,false);
 
         /** 
          * 添加坐标轴基线
@@ -93,6 +94,13 @@
             camera.lookAt(0,0,0);
             renderer = new WebGLRenderer();
             renderer.setSize(window.innerWidth ,window.innerHeight);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>

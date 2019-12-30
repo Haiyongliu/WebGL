@@ -129,6 +129,14 @@
             document.body.addEventListener("click",function(){
                setVerticesColor(model.geometry); 
             });
+            window.addEventListener('resize' ,onWindowResize ,false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>

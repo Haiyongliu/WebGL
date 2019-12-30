@@ -134,6 +134,7 @@
                 // playAudio();
                 playPositionAudio();
             });
+            window.addEventListener('resize' ,onWindowResize ,false);
         }
 
         function animate(){
@@ -192,5 +193,13 @@
             renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth,window.innerHeight);
         }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
+        }
+
     </script>
 </html>

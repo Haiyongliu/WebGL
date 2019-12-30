@@ -40,6 +40,7 @@
             document.body.addEventListener("click",function(){
                 animate();
             });
+            window.addEventListener('resize' ,onWindowResize ,false);
         }
 
         function initEnv(){
@@ -148,6 +149,13 @@
         function animate(){
             renderOnce();
             requestAnimationFrame(animate);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>

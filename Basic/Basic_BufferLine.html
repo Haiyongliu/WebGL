@@ -38,6 +38,8 @@
         putModel();
         renderOnce();
         animate();
+        window.addEventListener('resize' ,onWindowResize ,false);
+
 
         function initEnv(){
             scene = new THREE.Scene();
@@ -100,6 +102,13 @@
             model.rotation.z += 0.002;
 
             renderOnce();
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>

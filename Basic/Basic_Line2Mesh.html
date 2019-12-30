@@ -27,6 +27,7 @@
         putModel();
         renderOnce();
         animate();
+        window.addEventListener('resize' ,onWindowResize ,false);
 
         function lightUp(){
             pointLight = new THREE.PointLight( 0xffffff, 1.5 );
@@ -95,6 +96,13 @@
 
             renderOnce();
             requestAnimationFrame(animate);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize( window.innerWidth, window.innerHeight );
         }
     </script>
 </html>
