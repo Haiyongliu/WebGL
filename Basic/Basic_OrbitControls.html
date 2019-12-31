@@ -72,10 +72,10 @@
             controls = new OrbitControls( camera ,renderer.domElement );
             controls.enableDamping = true; // 是否设置阻尼效果 an animation loop is required when either damping or auto-rotation are enabled
             controls.dampingFactor = 0.05;
-            controls.screenSpacePanning = false;
+            controls.screenSpacePanning = false;    // 相继移动平面控制 false:不能在Y轴方向移动 true:能在Y轴方向移动
             controls.minDistance = 10;
             controls.maxDistance = 500;
-            controls.maxPolarAngle = Math.PI / 2;
+            controls.maxPolarAngle = Math.PI *2;   // 最大翻转角度
         }
 
         function createModel(){
