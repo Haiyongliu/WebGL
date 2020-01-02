@@ -15,8 +15,8 @@
     </body>
 
     <script type="module" >
-        import * as THREE from './js/three.module.js';
-        import { OrbitControls } from './js/OrbitControls.js';
+        import * as THREE from '../js/three.module.js';
+        import { OrbitControls } from '../js/OrbitControls.js';
         /** 
          * TAG: @OrbitControls
          */
@@ -137,14 +137,14 @@
         */
        function putBaseline(){
             var lineGeometry = new THREE.Geometry();
-            var materialLine = new THREE.LineBasicMaterial({color:0x9a9a9a});
+            var materialLine = new THREE.LineBasicMaterial({color:0xff0000});
             var lines = new THREE.Line(lineGeometry ,materialLine);
             lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(50 ,0 ,0));
+            lineGeometry.vertices.push(new THREE.Vector3(500 ,0 ,0));
             lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,50 ,0));
+            lineGeometry.vertices.push(new THREE.Vector3(0 ,500 ,0));
             lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,50));
+            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,500));
            
             scene.add(lines);
         }
