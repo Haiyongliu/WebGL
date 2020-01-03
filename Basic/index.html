@@ -10,141 +10,27 @@
     </head>
 
     <body id="bbody">
-        <p id="tag_p">P Element 2</p>
-        <p id="tag_p">P Element 1</p>
-        <p id="tag_p">P Element 3</p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/index.html" target="_blank">http://111.229.112.54:8080/Basic/index.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/AudioPlayer.html" target="_blank">http://111.229.112.54:8080/Basic/AudioPlayer.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_BoxBufferGeometry.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_BoxBufferGeometry.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_BufferLine.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_BufferLine.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_ColorAttribute.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_ColorAttribute.html</a></p>
+
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_CubecameraReflect.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_CubecameraReflect.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_EventDispatcher.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_EventDispatcher.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_Line.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_Line.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_Line2Mesh.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_Line2Mesh.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_MeshNormal.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_MeshNormal.html</a></p>
+        
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_OutlineGeometry.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_OutlineGeometry.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_Raycaster.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_Raycaster.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_Raycaster.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_Raycaster.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_Scene.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_Scene.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/Basic_TextureLoader.html" target="_blank">http://111.229.112.54:8080/Basic/Basic_TextureLoader.html</a></p>
+
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/control/Basic_OrbitControls.html" target="_blank">http://111.229.112.54:8080/Basic/control/Basic_OrbitControls.html</a></p>
+        <p id="tag_p"><a href="http://111.229.112.54:8080/Basic/control/Basic_PointLockControls.html" target="_blank">http://111.229.112.54:8080/Basic/control/Basic_PointLockControls.html</a></p>
+
 
     </body>
-
-    <script src="./js/three.js"></script>
-    <script >
-        // import { EffectComposer } from '../../examples/jsm/postprocessing/EffectComposer.js';
-        // import { RenderPass } from '../../examples/jsm/postprocessing/RenderPass.js';
-        // import { GlitchPass } from '../../examples/jsm/postprocessing/GlitchPass.js';
-
-        // import { ShaderPass } from '../../examples/jsm/postprocessing/ShaderPass.js';
-        // import { LuminosityShader } from '../../examples/jsm/shaders/LuminosityShader.js';
-        var MAX_POINTS = 5000;
-        
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
-        var renderer = new THREE.WebGLRenderer( { antialias:true } );
-
-
-        // var composer = new EffectComposer(renderer);
-
-        // var renderPass = new RenderPass( scene, camera );
-        // composer.addPass( renderPass );
-
-        // var glitchPass = new GlitchPass();
-        // composer.addPass( glitchPass );
-
-        // var luminosityPass = new ShaderPass( LuminosityShader );
-        // composer.addPass( luminosityPass );
-        var p_tag = document.getElementById("tag_p");
-
-        renderer.setSize(window.innerWidth,window.innerHeight);
-        document.body.insertBefore(renderer.domElement,p_tag);
-
-        var geometry = new THREE.BoxGeometry(3,3,3);
-        var geometryLine = new THREE.Geometry();
-        var bufferGeometry = new THREE.BufferGeometry();
-
-
-        var materialGreen = new THREE.MeshBasicMaterial({color:0x00ff00});
-        var materialBlue = new THREE.LineBasicMaterial({color:0x0000ff,linewidth:2});
-        
-        var cube = new THREE.Mesh(geometry,materialGreen);
-
-        var positions = new Float32Array(MAX_POINTS*3);
-        bufferGeometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
-        bufferGeometry.setDrawRange(0,2);
-        geometryLine.vertices.push(new THREE.Vector3(-10,0,0));
-        geometryLine.vertices.push(new THREE.Vector3(0,10,0));
-        geometryLine.vertices.push(new THREE.Vector3(0,0,10));
-
-        var line = new THREE.Line(geometryLine,materialBlue);
-        var lineDynamic = new THREE.Line(bufferGeometry,materialGreen);
-
-        scene.add(line);
-        scene.add(lineDynamic);
-        scene.add(cube);
-        camera.position.z = 15;
-        var degreeX = 0;
-        var degreeY = 0;
-        var breakPoint = true;
-        var x = 0;
-        var y = 0;
-        var z = 0;
-        var R = 5;
-        var step = 0.05;
-        var square = 1;
-        function animate(){
-            if(!breakPoint){
-                requestAnimationFrame(animate);
-            }
-            
-            cube.position.x += 0.01;
-            cube.position.y += 0.01;
-            cube.position.z -= 0.01;
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
-                            // camera.position.z += 0.03;
-            // degreeX += (Math.random() - 0.5) * 0.5;
-            // degreeY += (Math.random() - 0.5) * 0.5;
-            degreeX += (step) * 0.01;
-            degreeY += (step);
-            
-            dynamicLine();
-            // var x = 5 * Math.sin(degreeX);
-            // var y = 10 + 5 * Math.cos(degreeX);
-            x = R * Math.cos(degreeY) * Math.cos(degreeX);
-            y = R * Math.cos(degreeY) * Math.sin(degreeX);
-            z = R * Math.sin(degreeY);
-            // camera.position.x = x * 5;
-            // camera.position.y = y * 5;
-            // camera.position.z = z * 5;
-            // line.rotation.x = x;
-            // line.rotation.z = y;
-            lineDynamic.rotation.x += 0.01;
-            lineDynamic.rotation.y += 0.01;
-            // if(camera.position.z >15) camera.position.z = 5;
-            renderer.render(scene,camera);
-
-            // composer.render();
-        }
-
-        let bbdy = document.getElementById("bbody");
-        bbdy.addEventListener("click",function (){
-            dynamicLine();
-            breakPoint = !breakPoint;
-            animate();
-        });
-
-        var range = 2;
-        var positionIndex = 0;
-        function dynamicLine(){
-            var arrayy = lineDynamic.geometry.attributes.position.array;
-            if(positionIndex >= MAX_POINTS * 3){
-                return;
-            }
-            arrayy[positionIndex++] = x;
-            arrayy[positionIndex++] = y;
-            arrayy[positionIndex++] = z;
-            bufferGeometry.setDrawRange(0,range++);
-            lineDynamic.geometry.attributes.position.needsUpdate = true;
-            renderer.render(scene,camera);
-        }
-
-        animate();
-        window.addEventListener('resize' ,onWindowResize ,false);
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-
-            renderer.setSize( window.innerWidth, window.innerHeight );
-            renderer.render(scene,camera);
-        }
-    </script>
 </html>
