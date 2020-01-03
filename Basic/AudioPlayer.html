@@ -42,7 +42,7 @@
         addToScene();
         lightUp();
         // render the scene
-        renderScene();
+        render();
 
         // Animation and rotation and so on.
         others();
@@ -142,7 +142,7 @@
                 // System timer
                 window.requestAnimationFrame(animate);
             }
-            renderScene();
+            render();
 
             // step
             model.rotation.x += 0.01;
