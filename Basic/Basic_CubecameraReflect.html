@@ -68,7 +68,7 @@
                 cubeCamera.renderTarget.texture.generateMipmaps = true;
                 cubeCamera.renderTarget.texture.minFilter = THREE.LinearMipmapLinearFilter;
                 cubeCamera.update( renderer, scene );
-                render();
+                renderOnce();
             });
 
             // Shape
@@ -97,7 +97,7 @@
             scene.add( cubeCamera );
         }
 
-        function render(){
+        function renderOnce(){
             /**
             * 该模型中（WebGLRenderTargetCube），把图片转换成方块，相继无论如何位于方块中心点位置，
             * 所以，camera的position值最终都会按照三角函数将（x,y,z）转换成rotation的角度，
@@ -147,7 +147,7 @@
         }
 
         function animate(){
-            render();
+            renderOnce();
             requestAnimationFrame(animate);
         }
 
@@ -156,7 +156,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
-            render();
+            renderOnce();
         }
     </script>
 </html>

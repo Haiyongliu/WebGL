@@ -58,8 +58,8 @@
 				};
             loader.load('./resource/scene_bg_c.jpeg' , function ( texture) {
                 texture.mapping = THREE.UVMapping;
-                scene.background = new THREE.WebGLRenderTargetCube(4096,4096,options).fromEquirectangularTexture(renderer ,texture);
-                render();
+                scene.background = new THREE.WebGLRenderTargetCube(1024,1024,options).fromEquirectangularTexture(renderer ,texture);
+                renderOnce();
             });
         }
 
@@ -71,7 +71,7 @@
             //async load by TextureLoader
         }
 
-        function render(){
+        function renderOnce(){
             /**
             * 该模型中（WebGLRenderTargetCube），把图片转换成方块，相继无论如何位于方块中心点位置，
             * 所以，camera的position值最终都会按照三角函数将（x,y,z）转换成rotation的角度，
@@ -87,7 +87,7 @@
                     configPosition();
                     break;
                 case TYPE_INSIGHT:
-                configInsight();
+                    configInsight();
                     break;
             }
             render();
@@ -117,7 +117,7 @@
         }
 
         function animate(){
-            render();
+            renderOnce();
             requestAnimationFrame(animate);
         }
 
@@ -126,7 +126,7 @@
             camera.updateProjectionMatrix();
 
             renderer.setSize( window.innerWidth, window.innerHeight );
-            render();
+            renderOnce();
         }
 
     </script>
