@@ -14,8 +14,9 @@
 
     </body>
 
-    <script src="./js/three.js"></script>
-    <script>
+    <script type="module">
+        import * as THREE from './js/three.module.js';
+        import { TransformControls } from './js/TransformControls.js';
         /** 
          * 这个脚本展示最基本的WebGL的呈现过程
          * 
@@ -26,8 +27,8 @@
         var renderer;
         var model;
         var pointLight;
+        var transformControls;
 
-        var animateEnable = false;
         // prepare the enviroment
         initEnv();
         // prepare the model
@@ -38,7 +39,6 @@
         addToScene();
         lightUp();
         // render the scene
-        renderScene();
 
         // Animation and rotation and so on.
         others();
@@ -53,17 +53,9 @@
          * 添加坐标轴基线
         */
         function putBaseline(){
-            var lineGeometry = new THREE.Geometry();
-            var materialLine = new THREE.LineBasicMaterial({color:0x00ff00});
-            var lines = new THREE.Line(lineGeometry ,materialLine);
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(50 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,50 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,0));
-            lineGeometry.vertices.push(new THREE.Vector3(0 ,0 ,50));
-
-            scene.add(lines);
+            transformControls = new TransformControls ( camera , renderer.domElement );
+            scene.add(transformControls);
+            transformControls.addEventListener('change',renderScene);
         }
 
         function lightUp(){
@@ -74,18 +66,14 @@
 
         function registEventListener(){
             document.body.addEventListener("click",function(){
-                animateEnable = !animateEnable;
-                animate();
+                transformControls.attach( model );
             });
             window.addEventListener('resize' ,onWindowResize ,false);
         }
 
         function animate(){
-            if(animateEnable){
-                // System timer
-                window.requestAnimationFrame(animate);
-            }
             renderScene();
+            requestAnimationFrame(animate);
 
             // step
             model.rotation.x += 0.01;
@@ -93,7 +81,7 @@
             model.rotation.z += 0.01;
         }
 
-        function renderScene(){
+        function renderScene() {
             renderer.render(scene,camera);
         }
 
@@ -105,11 +93,11 @@
             document.body.appendChild(renderer.domElement);
         }
 
-        function createModel(){
+        function createModel() {
             // Shape
-            var boxGeometry = new THREE.BoxGeometry(5,5,5);
+            var boxGeometry = new THREE.BoxBufferGeometry(1,1,1);
             // Material
-            var material = new THREE.MeshPhongMaterial( { color: 0x121436, emissive: 0x754054, side: THREE.DoubleSide, flatShading: true } );
+            var material = new THREE.MeshPhongMaterial( { color: 0x121436, emissive: 0x754054, side: THREE.DoubleSide, flatShading: false } );
 
             // Mesh refer to the shape and material
             return new THREE.Mesh(boxGeometry,material);
@@ -118,13 +106,18 @@
         function initEnv(){
             // 1. prepare scene
             scene = new THREE.Scene();
+            scene.background = new THREE.Color( 0x111111 );
             // 2. prepare camera
             camera = new THREE.PerspectiveCamera(75 ,window.innerWidth/window.innerHeight,0.1,1000);
             camera.position.set(10,10,10);
             camera.lookAt(0,0,0);
             // 3. prepare renderer
             renderer = new THREE.WebGLRenderer( {antialias:true} );
-            renderer.setSize(window.innerWidth,window.innerHeight);
+
+            // 下面两个影响到性能方面的问题，setPixelRatio原型相对与实际屏幕尺寸的比值，setSize是原型的大小，两个相乘，一般要等于实际渲染区域的实际屏幕尺寸。
+            renderer.setPixelRatio( window.devicePixelRatio );
+            renderer.setSize( window.innerWidth,window.innerHeight );
+
         }
 
         function onWindowResize() {
